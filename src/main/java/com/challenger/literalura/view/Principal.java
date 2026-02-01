@@ -1,9 +1,11 @@
 package com.challenger.literalura.view;
 
+import com.challenger.literalura.model.Author;
 import com.challenger.literalura.model.Book;
 import com.challenger.literalura.model.BookData;
 import com.challenger.literalura.model.ResultsData;
 import com.challenger.literalura.service.ApiRequest;
+import com.challenger.literalura.service.AuthorService;
 import com.challenger.literalura.service.BookService;
 import com.challenger.literalura.service.DataConvert;
 
@@ -16,9 +18,11 @@ public class Principal {
     private DataConvert converter = new DataConvert();
     private final String URL_Base = "https://gutendex.com/books/?search=";
     private BookService bookService;
+    private AuthorService authorService;
 
-    public Principal(BookService bookService) {
+    public Principal(BookService bookService, AuthorService authorService) {
         this.bookService = bookService;
+        this.authorService = authorService;
     }
 
     public void showMenu() {
@@ -27,6 +31,7 @@ public class Principal {
             String menu = """
                     1 - Buscar libro por título
                     2 - Listar libros registrados
+                    3 - Listar autores registrados
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -36,6 +41,7 @@ public class Principal {
             switch (option) {
                 case 1 -> webFindBook();
                 case 2 -> listBooks();
+                case 3 -> listAuthors();
                 case 0 -> System.out.println("Cerrando la aplicación");
             }
         }
@@ -66,5 +72,17 @@ public class Principal {
             books.forEach(System.out::println);
         }
 
+    }
+
+    private void listAuthors() {
+        List<Author> authors = authorService.listRegisteredAuthors();
+
+        if (authors.isEmpty()) {
+            System.out.println("No existen autores registrados");
+        } else {
+            System.out.println("\n--- AUTORES REGISTRADOS ---");
+
+            authors.forEach(System.out::println);
+        }
     }
 }
