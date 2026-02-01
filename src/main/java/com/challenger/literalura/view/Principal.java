@@ -1,11 +1,13 @@
 package com.challenger.literalura.view;
 
+import com.challenger.literalura.model.Book;
 import com.challenger.literalura.model.BookData;
 import com.challenger.literalura.model.ResultsData;
 import com.challenger.literalura.service.ApiRequest;
 import com.challenger.literalura.service.BookService;
 import com.challenger.literalura.service.DataConvert;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -24,6 +26,7 @@ public class Principal {
         while (option != 0) {
             String menu = """
                     1 - Buscar libro por título
+                    2 - Listar libros registrados
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -32,6 +35,7 @@ public class Principal {
 
             switch (option) {
                 case 1 -> webFindBook();
+                case 2 -> listBooks();
                 case 0 -> System.out.println("Cerrando la aplicación");
             }
         }
@@ -49,5 +53,18 @@ public class Principal {
         } else {
             System.out.println("Libro no encontrado en la API");
         }
+    }
+
+    private void listBooks() {
+        List<Book> books = bookService.listRegisteredBooks();
+
+        if (books.isEmpty()) {
+            System.out.println("No existen libros registrados");
+        } else {
+            System.out.println("--- LIBROS REGISTRADOS ---");
+
+            books.forEach(System.out::println);
+        }
+
     }
 }

@@ -1,6 +1,5 @@
 package com.challenger.literalura;
 
-import com.challenger.literalura.service.ApiRequest;
 import com.challenger.literalura.service.BookService;
 import com.challenger.literalura.view.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
