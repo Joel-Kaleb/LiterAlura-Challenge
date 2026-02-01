@@ -11,6 +11,7 @@ public class Book {
     @Column(unique = true)
     private Long gutendexId;
     private String title;
+    @Column(name = "languages")
     private String language;
     private Integer downloads;
     @ManyToOne

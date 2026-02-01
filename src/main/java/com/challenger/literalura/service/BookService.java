@@ -41,6 +41,6 @@ public class BookService {
 
         bookRepository.save(book);
 
-        System.out.println("Libro guardado exitosamente: " + book.getTitle());
+        System.out.println(book);
     }
 }
