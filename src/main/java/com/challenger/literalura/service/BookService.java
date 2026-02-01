@@ -48,4 +48,8 @@ public class BookService {
     public List<Book> listRegisteredBooks() {
         return bookRepository.findAll();
     }
+
+    public List<Book> listBooksByLanguages(String language) {
+        return bookRepository.findByLanguage(language);
+    }
 }

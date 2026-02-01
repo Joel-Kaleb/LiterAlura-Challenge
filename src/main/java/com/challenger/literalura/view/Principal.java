@@ -32,6 +32,7 @@ public class Principal {
                     1 - Buscar libro por título
                     2 - Listar libros registrados
                     3 - Listar autores registrados
+                    4 - Listar libros por lenguaje
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -42,7 +43,9 @@ public class Principal {
                 case 1 -> webFindBook();
                 case 2 -> listBooks();
                 case 3 -> listAuthors();
+                case 4 -> findBooksByLanguage();
                 case 0 -> System.out.println("Cerrando la aplicación");
+                default -> System.out.println("Opción no válida");
             }
         }
     }
@@ -83,6 +86,20 @@ public class Principal {
             System.out.println("\n--- AUTORES REGISTRADOS ---");
 
             authors.forEach(System.out::println);
+        }
+    }
+
+    private void findBooksByLanguage(){
+        System.out.println("Ingresa un idioma en formato abreviado, ejem: es, en, etc");
+        String languageUser = userInput.nextLine().toLowerCase();
+        List<Book> booksByLanguage = bookService.listBooksByLanguages(languageUser);
+
+        if (booksByLanguage.isEmpty()) {
+            System.out.println("No existen libros registrados con ese lenguaje");
+        } else {
+            System.out.println("\n--- LIBROS ESCRITOS EN EL LENGUAJE: " + languageUser);
+
+            booksByLanguage.forEach(System.out::println);
         }
     }
 }
