@@ -16,4 +16,8 @@ public class AuthorService {
     public List<Author> listRegisteredAuthors() {
         return authorRepository.findAll();
     }
+
+    public List<Author> findAuthorsByYear(int year) {
+        return authorRepository.findAuthorsAliveInYear(year);
+    }
 }

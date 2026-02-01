@@ -33,6 +33,7 @@ public class Principal {
                     2 - Listar libros registrados
                     3 - Listar autores registrados
                     4 - Listar libros por lenguaje
+                    5 - Buscar autores existentes por año
                     0 - Salir
                     """;
             System.out.println(menu);
@@ -44,6 +45,7 @@ public class Principal {
                 case 2 -> listBooks();
                 case 3 -> listAuthors();
                 case 4 -> findBooksByLanguage();
+                case 5 -> findAuthorsByYear();
                 case 0 -> System.out.println("Cerrando la aplicación");
                 default -> System.out.println("Opción no válida");
             }
@@ -100,6 +102,26 @@ public class Principal {
             System.out.println("\n--- LIBROS ESCRITOS EN EL LENGUAJE: " + languageUser);
 
             booksByLanguage.forEach(System.out::println);
+        }
+    }
+
+    private void findAuthorsByYear() {
+        System.out.println("Ingresa el año que deseas consultar:");
+        try {
+            int userYear = userInput.nextInt();
+            userInput.nextLine();
+
+            List<Author> authorsByYear = authorService.findAuthorsByYear(userYear);
+
+            if (authorsByYear.isEmpty()) {
+                System.out.println("No se encontraron autores vivos en el año " + userYear);
+            } else {
+                System.out.println("\n--- AUTORES VIVOS EN EL AÑO " + userYear + " ---");
+                authorsByYear.forEach(System.out::println);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: Por favor, ingresa un número de año válido.");
+            userInput.nextLine();
         }
     }
 }
